@@ -7,9 +7,9 @@ import { randomUUID } from 'node:crypto';
 const PATH = './src/database/books.json';
 
 interface BookData {
-    name: string;
-    released: string;
-    author: string;
+	name: string;
+	released: string;
+	author: string;
 }
 
 class Book {
@@ -18,15 +18,42 @@ class Book {
 	author;
 	id;
 
-	constructor(name: string, released: string, author: string) {
+	constructor(book: BookData) {
+		const { name, released, author } = book;
+
 		this.name = name;
 		this.released = released;
 		this.author = author;
+
 		this.id = this.#createUUID();
 	}
 
+	static findBookByTitle(title: string) {
+		return DB.find((book) => book.name.includes(title))
+	}
+
+	static uploadNewBook(book: Book): boolean {
+		const isBookOnDB = this.findBookByTitle(book.name);
+
+		if (isBookOnDB) {
+			console.log("El libro ingresado ya se encuentra registrado en la base de datos");
+			return false;
+		}
+
+		DB.push(book)
+		const stringifiedDB = JSON.stringify(DB);
+		writeFileSync(PATH, stringifiedDB);
+
+		return true;
+	}
+
+
 	#createUUID(): string {
 		return randomUUID();
+	}
+
+	static getBooks() {
+		return DB;
 	}
 
 	getAge() {
@@ -36,21 +63,10 @@ class Book {
 
 		return currentYear - releasedDate;
 	}
+
+
 }
 
-const findBookByTitle = (title: string) =>
-	DB.find((book) => ); // Completar
-
-function uploadNewBook(book: BookData): boolean {
-	const isBookOnDB = findBookByTitle(book.name);
-
-	if (isBookOnDB) return false;
-
-	// Completar
-
-	return true;
-}
-
-export {} // Exportá los métodos estaticos
+export { Book }; // Exportá los métodos estaticos
 
 
