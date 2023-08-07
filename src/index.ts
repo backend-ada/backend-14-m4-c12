@@ -1,3 +1,4 @@
+
 import * as model from './model/model';
 
 (function main() {
@@ -21,3 +22,4 @@ import * as model from './model/model';
 	console.log(findBook);
 	
 })();
+

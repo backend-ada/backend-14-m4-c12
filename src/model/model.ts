@@ -1,10 +1,10 @@
 // Una vez completadas las funciones, convertilas en métodos estaticos de la clase Book.
 
-import DB from '../database/books.json';
-import { writeFileSync } from 'node:fs';
-import { randomUUID } from 'node:crypto';
+import DB from "../database/books.json"
+import { writeFileSync } from "node:fs"
+import { randomUUID } from "node:crypto"
 
-const PATH = './src/database/books.json';
+const PATH = "./src/database/books.json"
 
 interface BookData {
 	name: string;
@@ -68,5 +68,6 @@ class Book {
 }
 
 export { Book }; // Exportá los métodos estaticos
+
 
 
